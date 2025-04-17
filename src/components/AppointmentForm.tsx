@@ -15,13 +15,13 @@ const doctors: Doctor[] = [
    },
    {
       id: '2',
-      name: 'Dra. Maria Santos',
+      name: 'Dra. Mariana Caetano',
       specialty: 'Dermatologista',
       image: 'https://mighty.tools/mockmind-api/content/human/97.jpg',
    },
    {
       id: '3',
-      name: 'Dr. Pedro Oliveira',
+      name: 'Dr. Gustavo silva',
       specialty: 'Oftalmologista',
       image: 'https://mighty.tools/mockmind-api/content/human/79.jpg',
    },

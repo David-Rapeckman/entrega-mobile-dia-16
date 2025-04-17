@@ -20,7 +20,7 @@ const mockDoctors = [
   },
   {
     id: '2',
-    name: 'Dra. Maria Santos',
+    name: 'Dra. Mariana Caetano',
     email: 'maria@example.com',
     role: 'doctor' as const,
     specialty: 'Pediatria',
@@ -28,7 +28,7 @@ const mockDoctors = [
   },
   {
     id: '3',
-    name: 'Dr. Pedro Oliveira',
+    name: 'Dr. sergio liveira',
     email: 'pedro@example.com',
     role: 'doctor' as const,
     specialty: 'Ortopedia',
