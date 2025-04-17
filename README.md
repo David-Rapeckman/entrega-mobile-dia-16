@@ -10,4 +10,4 @@ Este projeto foi desenvolvido com o objetivo de otimizar e simplificar o process
 - Seleção de Médicos: Permite ao usuário escolher o médico de sua preferência com base nas especialidades disponíveis.
 - Agendamento de Consultas: Possibilita definir datas e horários para as consultas, considerando a disponibilidade dos profissionais de saúde.
 
-O sistema foi desenvolvido utilizando TypeScript, visando maior segurança, escalabilidade e confiabilidade no código, proporcionando uma melhor experiência tanto para os desenvolvedores quanto para os usuários finais.# 
+O sistema foi desenvolvido utilizando TypeScript, visando maior segurança, escalabilidade e confiabilidade no código, proporcionando uma melhor experiência tanto para os desenvolvedores quanto para os usuários finais.
