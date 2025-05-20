@@ -1,90 +1,65 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { authService } from '../services/auth';
-import { User, LoginCredentials, RegisterData, AuthContextData } from '../types/auth';
+import { Alert } from 'react-native';
+import { AuthContextType, User } from '../types/auth';
 
-// Chaves de armazenamento
-const STORAGE_KEYS = {
-  USER: '@MedicalApp:user',
-  TOKEN: '@MedicalApp:token',
-};
-
-const AuthContext = createContext<AuthContextData>({} as AuthContextData);
+const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     loadStoredUser();
-    loadRegisteredUsers();
+    seedAdminUser();
   }, []);
 
+  const seedAdminUser = async () => {
+    const storedUsers = await AsyncStorage.getItem('@users');
+    const users: User[] = storedUsers ? JSON.parse(storedUsers) : [];
+
+    const adminExists = users.some(u => u.email === 'admin@gmail.com');
+    if (!adminExists) {
+      const admin: User = {
+        id: '1',
+        name: 'Administrador',
+        email: 'admin@gmail.com',
+        password: 'admin123',
+        birthdate: '1990-01-01',
+        role: 'admin',
+      };
+      users.push(admin);
+      await AsyncStorage.setItem('@users', JSON.stringify(users));
+    }
+  };
+
   const loadStoredUser = async () => {
-    try {
-      const storedUser = await authService.getStoredUser();
-      if (storedUser) {
-        setUser(storedUser);
-      }
-    } catch (error) {
-      console.error('Erro ao carregar usuário:', error);
-    } finally {
-      setLoading(false);
+    const storedUser = await AsyncStorage.getItem('@user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
     }
   };
 
-  const loadRegisteredUsers = async () => {
-    try {
-      await authService.loadRegisteredUsers();
-    } catch (error) {
-      console.error('Erro ao carregar usuários registrados:', error);
-    }
-  };
+  const signIn = async (email: string, password: string) => {
+    const storedUsers = await AsyncStorage.getItem('@users');
+    const users: User[] = storedUsers ? JSON.parse(storedUsers) : [];
 
-  const signIn = async (credentials: LoginCredentials) => {
-    try {
-      const response = await authService.signIn(credentials);
-      setUser(response.user);
-      await AsyncStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(response.user));
-      await AsyncStorage.setItem(STORAGE_KEYS.TOKEN, response.token);
-    } catch (error) {
-      throw error;
-    }
-  };
+    const foundUser = users.find(u => u.email === email && u.password === password);
+    if (!foundUser) throw new Error('Credenciais inválidas');
 
-  const register = async (data: RegisterData) => {
-    try {
-      const response = await authService.register(data);
-      setUser(response.user);
-      await AsyncStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(response.user));
-      await AsyncStorage.setItem(STORAGE_KEYS.TOKEN, response.token);
-    } catch (error) {
-      throw error;
-    }
+    await AsyncStorage.setItem('@user', JSON.stringify(foundUser));
+    setUser(foundUser);
   };
 
   const signOut = async () => {
-    try {
-      await authService.signOut();
-      setUser(null);
-      await AsyncStorage.removeItem(STORAGE_KEYS.USER);
-      await AsyncStorage.removeItem(STORAGE_KEYS.TOKEN);
-    } catch (error) {
-      console.error('Erro ao fazer logout:', error);
-    }
+    await AsyncStorage.removeItem('@user');
+    setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, signIn, register, signOut }}>
+    <AuthContext.Provider value={{ user, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
+export const useAuth = () => useContext(AuthContext);
