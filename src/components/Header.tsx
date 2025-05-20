@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    color: colors.white,
+    color: colors.green,
     fontSize: fonts.size.title,
     fontWeight: 'bold',
   },

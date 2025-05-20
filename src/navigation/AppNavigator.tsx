@@ -1,3 +1,4 @@
+// src/navigation/AppNavigator.tsx
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth } from '../contexts/AuthContext';
@@ -8,7 +9,16 @@ import TabNavigator from './TabNavigator';
 import Moto1Screen from '../screens/Vehicles/Moto1Screen';
 import Moto2Screen from '../screens/Vehicles/Moto2Screen';
 import Moto3Screen from '../screens/Vehicles/Moto3Screen';
-import { RootStackParamList } from './Types';
+
+export type RootStackParamList = {
+  Splash: undefined;
+  SignIn: undefined;
+  SignUp: undefined;
+  MainApp: undefined;
+  Moto1Screen: undefined;
+  Moto2Screen: undefined;
+  Moto3Screen: undefined;
+};
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 

@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, Alert, KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { colors } from '../../styles/colors';
@@ -30,8 +38,7 @@ const SignUpScreen = () => {
     }
 
     try {
-      // Simulação de conta criada
-      await signIn(email, password);
+      await signIn(email, password); // simulação
       Alert.alert('Sucesso', 'Conta criada e login realizado!');
     } catch (error: any) {
       Alert.alert('Erro', error.message || 'Tente novamente.');
@@ -44,6 +51,7 @@ const SignUpScreen = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
       <Text style={styles.title}>Criar Conta</Text>
+      <Text style={styles.subtitle}>Preencha seus dados</Text>
 
       <Input placeholder="Nome completo" value={name} onChangeText={setName} />
       <Input placeholder="Data de nascimento" value={birthdate} onChangeText={setBirthdate} />
@@ -66,25 +74,30 @@ export default SignUpScreen;
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    paddingHorizontal: 20,
     justifyContent: 'center',
   },
   title: {
-    fontSize: 24,
+    fontSize: fonts.size.title,
     fontFamily: fonts.bold,
     color: colors.primary,
+    textAlign: 'center',
+    marginBottom: 8,
+  },
+  subtitle: {
+    fontSize: fonts.size.medium,
+    color: colors.gray,
     textAlign: 'center',
     marginBottom: 24,
   },
   linkText: {
     textAlign: 'center',
-    fontSize: 14,
+    fontSize: fonts.size.medium,
     color: colors.gray,
-    marginTop: 16,
+    marginTop: 24,
   },
   link: {
     color: colors.primary,
     fontFamily: fonts.bold,
   },
 });
-    

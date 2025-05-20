@@ -7,6 +7,7 @@ const SplashScreen = ({ navigation }: any) => {
   return (
     <View style={styles.container}>
       <Image source={require('../../../assets/icon.png')} style={styles.logo} />
+      <Text style={styles.title}>SysTrack</Text>
       <Button title="Entrar" onPress={() => navigation.navigate('SignIn')} />
       <Text style={styles.footerText}>
         Ainda não tem uma conta?{' '}
@@ -23,20 +24,27 @@ export default SplashScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.background,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: colors.background,
     padding: 24,
   },
   logo: {
-    width: 200,
-    height: 200,
+    width: 180,
+    height: 180,
     marginBottom: 20,
+  },
+  title: {
+    fontSize: fonts.size.title,
+    fontFamily: fonts.bold,
+    color: colors.primary,
+    marginBottom: 24,
   },
   footerText: {
     marginTop: 20,
     fontFamily: fonts.regular,
     color: colors.gray,
+    fontSize: fonts.size.medium,
   },
   link: {
     color: colors.primary,

@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, Alert, KeyboardAvoidingView, Platform, TouchableOpacity } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Text,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  TouchableOpacity,
+} from 'react-native';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { colors } from '../../styles/colors';
@@ -32,7 +40,8 @@ const SignInScreen = () => {
       style={[globalStyles.container, styles.container]}
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
     >
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>Bem-vindo</Text>
+      <Text style={styles.subtitle}>Acesse sua conta para continuar</Text>
 
       <Input
         placeholder="E-mail"
@@ -62,25 +71,35 @@ const SignInScreen = () => {
 export default SignInScreen;
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 20,
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontFamily: fonts.bold,
-    color: colors.primary,
-    textAlign: 'center',
-    marginBottom: 24,
-  },
-  linkText: {
-    textAlign: 'center',
-    fontSize: 14,
-    color: colors.gray,
-    marginTop: 16,
-  },
-  link: {
-    color: colors.primary,
-    fontFamily: fonts.bold,
-  },
-});
+    container: {
+      flex: 1,
+      paddingHorizontal: 24,
+      justifyContent: 'center',
+      backgroundColor: colors.background,
+    },
+    title: {
+      fontSize: fonts.size.title,
+      fontFamily: fonts.bold,
+      color: colors.primary,
+      textAlign: 'center',
+      marginBottom: 6,
+    },
+    subtitle: {
+      fontSize: fonts.size.medium,
+      color: colors.gray,
+      fontFamily: fonts.regular,
+      textAlign: 'center',
+      marginBottom: 32,
+    },
+    linkText: {
+      textAlign: 'center',
+      fontSize: fonts.size.medium,
+      color: colors.gray,
+      marginTop: 32,
+      lineHeight: 22,
+    },
+    link: {
+      color: colors.primary,
+      fontFamily: fonts.bold,
+    },
+  });
